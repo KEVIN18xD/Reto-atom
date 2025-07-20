@@ -1,6 +1,6 @@
 # Reto-atom
 
-# Google Cloud Setup  Docker and Nginx & Cerbot for n8n
+# Configuración de Google Cloud Docker, Nginx y Cerbot para n8n
 
 ### Step 1: Update the system
 ```bash
