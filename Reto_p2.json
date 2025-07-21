@@ -1,0 +1,289 @@
+{
+  "name": "Reto_p2",
+  "nodes": [
+    {
+      "parameters": {
+        "jsCode": "// Agrupa por Tipo-Marca y asigna IDs únicos\nconst groupedData = items.reduce((acc, item, index) => {\n  const key = `${item.json.Tipo} - ${item.json.Marca}`;\n  if (!acc[key]) acc[key] = [];\n  \n  // Añade ID único basado en índice\n  acc[key].push({\n    ...item.json,\n    ID: `${key}-${index}-${Date.now()}` // ID único\n  });\n  return acc;\n}, {});\n\n// Prepara para Airtable\nreturn Object.entries(groupedData).map(([Tipo_Marca , records]) => {\n  return {\n    json: {\n      Tipo_Marca,\n      records      \n    }\n  };\n  console.log(\"Grouped Data:\", groupedData);\n});"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        0
+      ],
+      "id": "f9501c6b-fbc2-4a91-be2b-931993d1b658",
+      "name": "Code",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "daysInterval": 2,
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -672,
+        0
+      ],
+      "id": "7882dc3d-7ea3-4522-9eb6-a9a50e400d56",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appsDDHa3XI0AIb3q",
+          "mode": "list",
+          "cachedResultName": "Vehiculos_test",
+          "cachedResultUrl": "https://airtable.com/appsDDHa3XI0AIb3q"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblxG9mopIkGUreRq",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://airtable.com/appsDDHa3XI0AIb3q/tblxG9mopIkGUreRq"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Año": "={{ $json.records[0]['Año'] }}",
+            "Precio (USD)": "={{ $json.records[0]['Precio (USD)'] }}",
+            "Tipo": "={{ $json.records[0].Tipo }}",
+            "Tipo - Marca": "={{ $json.Tipo_Marca }}",
+            "Marca": "={{ $json.records[0].Marca }}",
+            "Id_ve": "={{ $json.records[0].ID }}",
+            "Modelo": "={{ $json.records[0].Modelo }}",
+            "Información General": "={{ $json.records[0]['Información General'] }}",
+            "Estado": "={{ $json.records[0].Estado }}",
+            "Último Mantenimiento": "={{ $json.records[0]['Último Mantenimiento'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tipo - Marca",
+              "displayName": "Tipo - Marca",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Id_ve",
+              "displayName": "Id_ve",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Marca",
+              "displayName": "Marca",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Modelo",
+              "displayName": "Modelo",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Año",
+              "displayName": "Año",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Información General",
+              "displayName": "Información General",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Precio (USD)",
+              "displayName": "Precio (USD)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Estado",
+              "displayName": "Estado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Último Mantenimiento",
+              "displayName": "Último Mantenimiento",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "db2277dd-3ca5-4ff8-8b3c-8de8ef3ad056",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Xk9AtP0zMW1PAJ1m",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1AJQKudMmE8JUFgSMc2mJcD4uR_hUhF_fpqGYn4dO4hs",
+          "mode": "list",
+          "cachedResultName": "Vehiculos_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AJQKudMmE8JUFgSMc2mJcD4uR_hUhF_fpqGYn4dO4hs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AJQKudMmE8JUFgSMc2mJcD4uR_hUhF_fpqGYn4dO4hs/edit#gid=0"
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -480,
+        0
+      ],
+      "id": "1f603004-c715-41e8-8def-e8d6531db53a",
+      "name": "Get row(s) in sheet",
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "executeOnce": false,
+      "retryOnFail": false,
+      "credentials": {
+        "googleApi": {
+          "id": "R6AAS1zWh5A6ya3J",
+          "name": "Google Service Account account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0d816c38-7242-48d7-be86-a8a578de683d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "24c583ba53598cadcfeb20a3e03339105103021dd4b9c262349d4a3d9f377b60"
+  },
+  "id": "AO6xbcJiVs97WTAk",
+  "tags": []
+}
