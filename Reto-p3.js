@@ -1,4 +1,4 @@
-## selector Tipo
+##selector_Tipo
 {{ 
   _.uniq(GetVehiculos.data.records
     .map(r => r.fields.Tipo)
@@ -6,7 +6,7 @@
   ).map(t => ({ label: t, value: t }))
 }}
 
-## Selector Marca
+##Selector_Marca
 {{ 
   _.uniq(GetVehiculos.data.records
     .map(r => r.fields.Marca)
@@ -14,7 +14,7 @@
   ).map(m => ({ label: m, value: m }))
 }}
 
-## Datos tabla
+##Datos_tabla
 {{ BuscarFiltrados.data.records.map(r => ({
   ID: r.id,
   ...r.fields
