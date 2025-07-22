@@ -1,0 +1,250 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1AJQKudMmE8JUFgSMc2mJcD4uR_hUhF_fpqGYn4dO4hs",
+          "mode": "list",
+          "cachedResultName": "Vehiculos_test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AJQKudMmE8JUFgSMc2mJcD4uR_hUhF_fpqGYn4dO4hs/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AJQKudMmE8JUFgSMc2mJcD4uR_hUhF_fpqGYn4dO4hs/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        560,
+        144
+      ],
+      "id": "0387f88d-5e32-4832-bb47-ebe2c052d247",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "X9dRwdrnMcN6oL8f",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Paso 1: Obtener todos los registros del nodo anterior\nconst datos = items.map(item => item.json);\n\n// Paso 2: Elegir el campo por el cual ordenar\nconst ordenarPor = \"Año\"; // Puedes cambiar a \"Año\" si lo deseas\n\n// Paso 3: Ordenar los datos (asumiendo que son numéricos)\nconst ordenados = datos.sort((a, b) => {\n  const x = parseInt(a[ordenarPor]);\n  const y = parseInt(b[ordenarPor]);\n  return x - y;\n});\n\n// Paso 4: Devolver el resultado en el formato que N8N espera\nreturn ordenados.map(item => ({ json: item }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        144
+      ],
+      "id": "ebe64260-1731-4ae2-aa63-2977a48c08d0",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const tipo = $node[\"Webhook1\"].json[\"params\"][\"tipo\"];\nconst marca = $node[\"Webhook1\"].json[\"params\"][\"marca\"];\n\nreturn {\n  tipo: tipo,\n  marca: marca\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        144
+      ],
+      "id": "9374a205-5cdb-46dd-89c7-176670677533",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"myField\": \"value\",\n  \"Año\":\"{{ $json['Año'] }}\",\n  \"Tipo-marca\":\"{{ $json.Tipo }} - {{ $json.Marca }}\"}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1488,
+        144
+      ],
+      "id": "e1305e41-c53a-4d92-a374-651ba65b8f22",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1-db5doyn8og4m1HjH-ZF4dw2ESc9L2OWaJfJk7pshGg",
+          "mode": "list",
+          "cachedResultName": "Respuesta Json reto4",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-db5doyn8og4m1HjH-ZF4dw2ESc9L2OWaJfJk7pshGg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1-db5doyn8og4m1HjH-ZF4dw2ESc9L2OWaJfJk7pshGg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Año": "={{ $json['Año'] }}",
+            "Tipo": "={{ $json.Tipo }}",
+            "Marca": "={{ $json.Marca }}"
+          },
+          "matchingColumns": [
+            "Año"
+          ],
+          "schema": [
+            {
+              "id": "Tipo",
+              "displayName": "Tipo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Marca",
+              "displayName": "Marca",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Año",
+              "displayName": "Año",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1024,
+        144
+      ],
+      "id": "ed0b46f4-2599-4afe-a7b3-f3077001da4c",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "X9dRwdrnMcN6oL8f",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "/webhook-test/tipo/:tipo/marca/:marca",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        144,
+        144
+      ],
+      "id": "1c01e085-ed33-4eef-999d-9fd02fc52373",
+      "name": "Webhook1",
+      "webhookId": "5c004216-f09e-42d6-b0a4-5224ed655222"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cf4a229f-7382-421d-80d6-7b40cf38bb87",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7f2fc082e385dbd5b230b84e312d649110df01a91d2941d2cdb091214aee6726"
+  },
+  "id": "ks4cBh8lpqpY9mBg",
+  "tags": []
+}
