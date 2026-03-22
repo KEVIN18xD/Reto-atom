@@ -37,9 +37,9 @@ sudo systemctl enable docker
 sudo docker run -d --restart unless-stopped -it \
 --name n8n \
 -p 5678:5678 \
--e N8N_HOST="retoatomn8n.zapto.orgm" \
--e WEBHOOK_TUNNEL_URL="https://retoatomn8n.zapto.org/" \
--e WEBHOOK_URL="https://retoatomn8n.zapto.org/" \
+-e N8N_HOST="motortech-toyota.ddns.net" \
+-e WEBHOOK_TUNNEL_URL="https://motortech-toyota.ddns.net/" \
+-e WEBHOOK_URL="https://motortech-toyota.ddns.net/" \
 -v ~/.n8n:/root/.n8n \
 n8nio/n8n
 ```
