@@ -1,5 +1,12 @@
 # Reto-atom
 
+
+# 1. Creando VM para alojar la instancia: GCP -> Seleccionar proyecto -> Compute Engine -> Crear instancia -> Crear VM a partir de.. (Acá vamos a selecionar el SO y recursos para que la instancia pueda alojar el servicio que este caso será n8n)
+# 2. Crear VM a partir de.. -> Seleccionar Bajo costo -> Aplicar la configuración predeterminada.
+# 3.
+
+
+
 # Configuración de Google Cloud Docker, Nginx y Cerbot para n8n
 
 ### video: https://www.youtube.com/watch?v=9aQhSa5lw98
