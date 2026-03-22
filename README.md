@@ -2,6 +2,7 @@
 
 # Configuración de Google Cloud Docker, Nginx y Cerbot para n8n
 
+### video: https://www.youtube.com/watch?v=9aQhSa5lw98
 ### Step 1: Update the system
 ```bash
 sudo apt update
