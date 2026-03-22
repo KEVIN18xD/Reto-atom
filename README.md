@@ -7,7 +7,7 @@
 # 4. Luego seleccionamos SO y Almacenamiento - > Cambiar -> Solamente se cambia el "Tipo de disco de arranque" de Balanceado a Estándar, el almacenamiento de 10GB a 25GB -> presionamos seleccionar.
 # 5. Luego vamos Redes -> En Firewall permitimos todo el tráfico (HTTP, HTTPS, verificaciones de estado del balanceador de cargas)
 # 6. Luego en Configuración de la máquina Buscamos Modelo de aprovisionamiento -> en Modelo de aprovisamiento de VM cambiar de spot a Estándar, luego validar que en "Mantenimiento en el host" tenga seleccionado (Migrar instancias de VM (recomendado)).
-# 7. Creamos la instancia y una vez encendida seleccionaro "Conectar" en SSH y seguimos con la configuración.
+# 7. Creamos la instancia y una vez encendida seleccionamos "Conectar" en SSH y seguimos con la configuración.
 
 # Configuración de Google Cloud Docker, Nginx y Cerbot para n8n
 
