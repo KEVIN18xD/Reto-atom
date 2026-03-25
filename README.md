@@ -45,6 +45,7 @@ n8nio/n8n
 ```
 
 ### Step 6: Install Nginx
+antes de correr este tomando debemos crear una regla de firewall para que permita la ejecución del comando.
 ```bash
 sudo apt install nginx
 ```
