@@ -54,9 +54,9 @@ sudo systemctl enable docker
 sudo docker run -d --restart unless-stopped -it \
 --name n8n \
 -p 5678:5678 \
--e N8N_HOST="motortech-toyota.freedynamicdns.net" \
--e WEBHOOK_TUNNEL_URL="https://motortech-toyota.freedynamicdns.net/" \
--e WEBHOOK_URL="https://motortech-toyota.freedynamicdns.net/" \
+-e N8N_HOST="[[url de no-ip]]" \
+-e WEBHOOK_TUNNEL_URL="https://[[url de no-ip]]/" \
+-e WEBHOOK_URL="https://[[url de no-ip]]t/" \
 -v ~/.n8n:/root/.n8n \
 n8nio/n8n
 ```
@@ -75,7 +75,7 @@ Add the following content:
 ```nginx
 server {
     listen 80;
-    server_name motortech-toyota.freedynamicdns.net;
+    server_name [[url de no-ip]] sin http;
 
     location / {
         proxy_pass http://localhost:5678;
@@ -123,7 +123,7 @@ sudo apt install certbot python3-certbot-nginx
 
 ### Step 12: Obtain SSL Certificate
 ```bash
-sudo certbot --nginx -d motortech-toyota.freedynamicdns.net
+sudo certbot --nginx -d [[url de no-ip]] sin http
 ```
 
 
